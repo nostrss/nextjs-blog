@@ -1,16 +1,15 @@
-interface PaginationProps {
+import { useRouter } from 'next/router';
+
+interface IPaginationProps {
   totalItems: number;
   itemsPerPage: number;
-  setCurrentPage: (newPage: number) => void;
-  currentPage: number;
-  // onChangePage: (newPage: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+export default function Pagination({
   totalItems,
   itemsPerPage,
-  setCurrentPage,
-}) => {
+}: IPaginationProps) {
+  const router = useRouter();
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   if (totalPages <= 1) {
@@ -18,7 +17,7 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   const onClickNewPage = (newPage: number) => {
-    setCurrentPage(newPage);
+    router.push(`/page/${newPage}`);
   };
 
   const renderPages = () => {
@@ -38,6 +37,4 @@ const Pagination: React.FC<PaginationProps> = ({
       <ul>{renderPages()}</ul>
     </div>
   );
-};
-
-export default Pagination;
+}

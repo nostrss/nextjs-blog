@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Global styles={GlobalStyles} />
       <Header />
-      <Component pageProps={pageProps} />
+      <Component {...pageProps} />
       <Footer />
     </QueryClientProvider>
   );
