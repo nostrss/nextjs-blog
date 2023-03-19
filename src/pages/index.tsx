@@ -1,15 +1,26 @@
 import { fetchData } from '@/common/api';
+import Pagination from '@/components/pagination/paginateion';
 import { BlogPost } from '@/mokData/dataList';
 import Head from 'next/head';
 import { useEffect, useId, useState } from 'react';
 
+interface IResponseLists {
+  total: number;
+  bloglistData: BlogPost[];
+}
+
 export default function Home() {
-  const [lists, setLists] = useState<BlogPost[]>([]);
+  const [lists, setLists] = useState<IResponseLists>({
+    total: 0,
+    bloglistData: [],
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
   const prefix = useId();
 
   useEffect(() => {
-    fetchData(setLists);
-  }, []);
+    fetchData(setLists, currentPage);
+  }, [currentPage]);
 
   return (
     <>
@@ -21,14 +32,20 @@ export default function Home() {
       </Head>
       <main>
         <h1>블로그 리스트 입니다</h1>
-        <ol>
-          {lists.map((item, index) => (
+        <ul>
+          {lists?.bloglistData.map((item, index) => (
             <li key={prefix + index}>
               <h2>{item.title}</h2>
               <p>{item.body}</p>
             </li>
           ))}
-        </ol>
+        </ul>
+        <Pagination
+          totalItems={lists.total}
+          itemsPerPage={10}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </main>
     </>
   );
