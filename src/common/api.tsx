@@ -5,7 +5,7 @@ export const fetchData = async (
   page: number,
 ) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/lists/${page}`);
+    const response = await axios.get(`/api/lists/${page}`);
     setState(response.data);
   } catch (error) {
     console.log(error);
