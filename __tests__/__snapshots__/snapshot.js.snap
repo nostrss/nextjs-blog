@@ -6,7 +6,24 @@ exports[`renders homepage unchanged 1`] = `
     <h1>
       블로그 리스트 입니다
     </h1>
-    <ol />
+    <ul>
+      <div
+        class="infinite-scroll-component__outerdiv"
+      >
+        <div
+          class="infinite-scroll-component "
+          style="height: auto; overflow: auto;"
+        >
+          <p
+            style="text-align: center;"
+          >
+            <b>
+              Yay! You have seen it all
+            </b>
+          </p>
+        </div>
+      </div>
+    </ul>
   </main>
 </div>
 `;

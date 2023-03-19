@@ -1,6 +1,7 @@
 import { fetchDataListPage } from '@/common/api';
 import Pagination from '@/components/pagination/paginateion';
 import { BlogPost } from '@/mokData/dataList';
+import Link from 'next/link';
 import { useId } from 'react';
 
 interface IResponseLists {
@@ -13,7 +14,12 @@ export default function BlogListPagination({ data }: any) {
 
   return (
     <>
-      <h1>블로그 리스트 입니다</h1>
+      <p>
+        무한스크롤으로 보기
+        <Link href={'/'}>
+          <button>Go</button>
+        </Link>
+      </p>
       <ul>
         {data?.bloglistData.map((item: any, index: number) => (
           <li key={prefix + index}>

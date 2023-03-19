@@ -1,41 +1,57 @@
 import { fetchData } from '@/common/api';
 import { BlogPost } from '@/mokData/dataList';
+import Link from 'next/link';
 import { useEffect, useId, useState } from 'react';
-import Pagination from '../pagination/paginateion';
-
-interface IResponseLists {
-  total: number;
-  bloglistData: BlogPost[];
-}
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function BlogList() {
-  const [lists, setLists] = useState<IResponseLists>({
-    total: 0,
-    bloglistData: [],
-  });
-
-  const [currentPage, setCurrentPage] = useState(1);
+  const [blogLists, setBlogLists] = useState<BlogPost[]>([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const prefix = useId();
 
+  const fetchNextPage = async () => {
+    const result = await fetchData(currentPage + 1);
+    const data = result?.data;
+    setTotalPage(data.total);
+    setBlogLists([...blogLists, ...data.bloglistData]);
+    setCurrentPage(currentPage + 1);
+  };
+
   useEffect(() => {
-    fetchData(setLists, currentPage);
-  }, [currentPage]);
+    fetchNextPage();
+  }, []);
+
   return (
     <>
-      <h1>블로그 리스트 입니다</h1>
+      <h1>블로그 무한스크롤 페이지입니다.</h1>
+      <p>
+        페이지네이션으로 보기
+        <Link href={'/page/1'}>
+          <button>Go</button>
+        </Link>
+      </p>
       <ul>
-        {lists?.bloglistData.map((item, index) => (
-          <li key={prefix + index}>
-            <h2>{item.title}</h2>
-            <p>{item.body}</p>
-          </li>
-        ))}
+        <InfiniteScroll
+          dataLength={blogLists.length}
+          next={fetchNextPage}
+          hasMore={totalPage !== blogLists.length}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: 'center' }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+          scrollThreshold={0.8}
+        >
+          {blogLists?.map((item, index) => (
+            <li key={prefix + index}>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </li>
+          ))}
+        </InfiniteScroll>
       </ul>
-      {/* <Pagination
-        totalItems={lists.total}
-        itemsPerPage={10}
-        setCurrentPage={setCurrentPage}
-      /> */}
     </>
   );
 }
