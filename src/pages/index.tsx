@@ -1,6 +1,16 @@
+import { fetchData } from '@/common/api';
+import { BlogPost } from '@/mokData/dataList';
 import Head from 'next/head';
+import { useEffect, useId, useState } from 'react';
 
 export default function Home() {
+  const [lists, setLists] = useState<BlogPost[]>([]);
+  const prefix = useId();
+
+  useEffect(() => {
+    fetchData(setLists);
+  }, []);
+
   return (
     <>
       <Head>
@@ -10,7 +20,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>hi</h1>
+        <h1>블로그 리스트 입니다</h1>
+        <ol>
+          {lists.map((item, index) => (
+            <li key={prefix + index}>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </li>
+          ))}
+        </ol>
       </main>
     </>
   );

@@ -4,8 +4,9 @@ exports[`renders homepage unchanged 1`] = `
 <div>
   <main>
     <h1>
-      hi
+      블로그 리스트 입니다
     </h1>
+    <ol />
   </main>
 </div>
 `;

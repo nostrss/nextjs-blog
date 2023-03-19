@@ -5,11 +5,11 @@ import Footer from '@/components/layout/footer';
 import '@testing-library/jest-dom';
 
 describe('Home', () => {
-  it('renders a heading', () => {
+  it('renders lists', () => {
     render(<Home />);
 
     const heading = screen.getByRole('heading', {
-      name: /hi/i,
+      name: /블로그 리스트 입니다/i,
     });
 
     expect(heading).toBeInTheDocument();
