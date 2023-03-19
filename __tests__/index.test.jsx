@@ -9,7 +9,7 @@ describe('Home', () => {
     render(<Home />);
 
     const heading = screen.getByRole('heading', {
-      name: /블로그 리스트 입니다/i,
+      name: /블로그 무한스크롤 페이지입니다./i,
     });
 
     expect(heading).toBeInTheDocument();

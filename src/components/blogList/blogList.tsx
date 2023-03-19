@@ -1,4 +1,4 @@
-import { fetchData } from '@/common/api';
+import { fetchDataListPerPage } from '@/common/api';
 import { BlogPost } from '@/mokData/dataList';
 import Link from 'next/link';
 import { useEffect, useId, useState } from 'react';
@@ -11,7 +11,7 @@ export default function BlogList() {
   const prefix = useId();
 
   const fetchNextPage = async () => {
-    const result = await fetchData(currentPage + 1);
+    const result = await fetchDataListPerPage(currentPage + 1);
     const data = result?.data;
     setTotalPage(data.total);
     setBlogLists([...blogLists, ...data.bloglistData]);

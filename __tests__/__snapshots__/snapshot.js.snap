@@ -4,8 +4,18 @@ exports[`renders homepage unchanged 1`] = `
 <div>
   <main>
     <h1>
-      블로그 리스트 입니다
+      블로그 무한스크롤 페이지입니다.
     </h1>
+    <p>
+      페이지네이션으로 보기
+      <a
+        href="/page/1"
+      >
+        <button>
+          Go
+        </button>
+      </a>
+    </p>
     <ul>
       <div
         class="infinite-scroll-component__outerdiv"

@@ -1,4 +1,4 @@
-import { fetchDataListPage } from '@/common/api';
+import { fetchDataListPerPage } from '@/common/api';
 import Pagination from '@/components/pagination/paginateion';
 import { BlogPost } from '@/mokData/dataList';
 import Link from 'next/link';
@@ -36,7 +36,7 @@ export default function BlogListPagination({ data }: any) {
 export async function getServerSideProps(context: any) {
   const { currentPage } = context.params;
 
-  const res = await fetchDataListPage(currentPage);
+  const res = await fetchDataListPerPage(currentPage);
   const data = res?.data;
   return {
     props: {
