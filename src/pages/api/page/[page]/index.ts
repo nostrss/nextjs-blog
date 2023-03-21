@@ -10,9 +10,9 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<IResponseLists>,
 ) {
-  const id = Number(req.query.id);
+  const page = Number(req.query.page);
   const responseData = {
-    bloglistData: blogList.slice((id - 1) * 10, id * 10),
+    bloglistData: blogList.slice((page - 1) * 10, page * 10),
     total: blogList.length,
   };
 

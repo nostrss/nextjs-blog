@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useId } from 'react';
 
 interface IResponseLists {
-  total: number;
-  bloglistData: BlogPost[];
+  data: {
+    total: number;
+    bloglistData: BlogPost[];
+  };
 }
 
-export default function BlogListPagination({ data }: any) {
+export default function BlogListPagination({ data }: IResponseLists) {
   const prefix = useId();
 
   return (
@@ -21,7 +23,7 @@ export default function BlogListPagination({ data }: any) {
         </Link>
       </p>
       <ul>
-        {data?.bloglistData.map((item: any, index: number) => (
+        {data?.bloglistData.map((item: BlogPost, index: number) => (
           <li key={prefix + index}>
             <h2>{item.title}</h2>
             <p>{item.body}</p>

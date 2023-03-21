@@ -7,7 +7,7 @@ const url =
 
 export const fetchDataListPerPage = async (page: number) => {
   try {
-    const response = await axios.get(`${url}/lists/${page}`);
+    const response = await axios.get(`${url}/page/${page}`);
     return response;
   } catch (error) {
     console.log(error);
