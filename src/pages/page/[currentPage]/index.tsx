@@ -24,10 +24,12 @@ export default function BlogListPagination({ data }: IResponseLists) {
       </p>
       <ul>
         {data?.bloglistData.map((item: BlogPost, index: number) => (
-          <li key={prefix + index}>
-            <h2>{item.title}</h2>
-            <p>{item.body}</p>
-          </li>
+          <Link key={prefix + index} href={`/detail/${item.postId}`}>
+            <li>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </li>
+          </Link>
         ))}
       </ul>
       <Pagination totalItems={data.total} itemsPerPage={10} />

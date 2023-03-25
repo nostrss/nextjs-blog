@@ -45,10 +45,12 @@ export default function BlogList() {
           scrollThreshold={0.8}
         >
           {blogLists?.map((item, index) => (
-            <li key={prefix + index}>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-            </li>
+            <Link key={prefix + index} href={`/detail/${item.postId}`}>
+              <li>
+                <h2>{item.title}</h2>
+                <p>{item.body}</p>
+              </li>
+            </Link>
           ))}
         </InfiniteScroll>
       </ul>

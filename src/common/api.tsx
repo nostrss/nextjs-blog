@@ -13,3 +13,12 @@ export const fetchDataListPerPage = async (page: number) => {
     console.log(error);
   }
 };
+
+export const fetchDetailPageData = async (postId: number) => {
+  try {
+    const response = await axios.get(`${url}/detail/${postId}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
