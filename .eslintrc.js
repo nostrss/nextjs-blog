@@ -5,9 +5,11 @@ module.exports = {
     node: true,
   },
   extends: [
+    'plugin:@next/next/recommended',
     'plugin:react/recommended',
     'airbnb',
     'plugin:prettier/recommended',
+    'plugin:import/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,7 +19,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'plugin:import/recommended'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': 'off',

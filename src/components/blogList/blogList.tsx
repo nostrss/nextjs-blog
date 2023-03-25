@@ -27,8 +27,8 @@ export default function BlogList() {
       <h1>블로그 무한스크롤 페이지입니다.</h1>
       <p>
         페이지네이션으로 보기
-        <Link href={'/page/1'}>
-          <button>Go</button>
+        <Link href="/page/1">
+          <button type="button">Go</button>
         </Link>
       </p>
       <ul>
