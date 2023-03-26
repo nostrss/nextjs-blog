@@ -1,14 +1,15 @@
 import { fetchDataListPerPage } from '@/common/api';
 import { BlogPost } from '@/mokData/dataList';
 import Link from 'next/link';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { v4 as uuidv4 } from 'uuid';
+import BlogListItem from '../blogListItem/blogListItem';
 
 export default function BlogList() {
   const [blogLists, setBlogLists] = useState<BlogPost[]>([]);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const prefix = useId();
 
   const fetchNextPage = async () => {
     const result = await fetchDataListPerPage(currentPage + 1);
@@ -46,13 +47,8 @@ export default function BlogList() {
           }
           scrollThreshold={0.8}
         >
-          {blogLists?.map((item, index) => (
-            <Link key={prefix + index} href={`/detail/${item.postId}`}>
-              <li>
-                <h2>{item.title}</h2>
-                <p>{item.body}</p>
-              </li>
-            </Link>
+          {blogLists?.map((blogListItem) => (
+            <BlogListItem key={uuidv4()} blogListItem={blogListItem} />
           ))}
         </InfiniteScroll>
       </ul>

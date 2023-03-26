@@ -1,8 +1,9 @@
 import { fetchDataListPerPage } from '@/common/api';
+import BlogListItem from '@/components/blogListItem/blogListItem';
 import Pagination from '@/components/pagination/paginateion';
 import { BlogPost } from '@/mokData/dataList';
 import Link from 'next/link';
-import { useId } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IResponseLists {
   data: {
@@ -12,8 +13,6 @@ interface IResponseLists {
 }
 
 export default function BlogListPagination({ data }: IResponseLists) {
-  const prefix = useId();
-
   return (
     <>
       <p>
@@ -23,13 +22,8 @@ export default function BlogListPagination({ data }: IResponseLists) {
         </Link>
       </p>
       <ul>
-        {data?.bloglistData.map((item: BlogPost, index: number) => (
-          <Link key={prefix + index} href={`/detail/${item.postId}`}>
-            <li>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-            </li>
-          </Link>
+        {data?.bloglistData.map((blogListItem: BlogPost) => (
+          <BlogListItem key={uuidv4()} blogListItem={blogListItem} />
         ))}
       </ul>
       <Pagination totalItems={data.total} itemsPerPage={10} />

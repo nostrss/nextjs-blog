@@ -1,5 +1,6 @@
 import { fetchDetailPageData } from '@/common/api';
 import { BlogPost } from '@/mokData/dataList';
+import { Suspense } from 'react';
 
 interface IPropsDetail {
   data: {
@@ -11,15 +12,32 @@ export default function DetailPage({ data }: IPropsDetail) {
   const { pageData } = data;
 
   return (
-    <div>
-      <h1>{pageData.title}</h1>
-      <p>{pageData.body}</p>
-      <p>{pageData.createdAt}</p>
-      <p>{pageData.likes}</p>
-      <p>{pageData.views}</p>
-      <p>{pageData.user.name}</p>
-      <p>{pageData.tag}</p>
-    </div>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <div>
+        <h1>Title : {pageData.postTitle}</h1>
+        <p>Body : {pageData.postContents}</p>
+        <p>createdAt : {pageData.createdAt}</p>
+        <p>Likes : {pageData.likes}</p>
+        <p>Views : {pageData.views}</p>
+        <p>User.name{pageData.user.name}</p>
+        <p>Tag</p>
+        <ul>
+          {pageData.tags?.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+        <p>Comments</p>
+        <ul>
+          {pageData.comments?.map((item, index) => (
+            <li key={index}>
+              <p>Comment : {item.comment}</p>
+              <p>createdAt : {item.createdAt}</p>
+              <p>user.name : {item.user.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Suspense>
   );
 }
 

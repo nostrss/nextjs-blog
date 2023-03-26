@@ -14,9 +14,9 @@ export type BlogComments = {
 export type BlogPost = {
   user: User;
   postId: number;
-  title: string;
-  body: string;
-  tag?: string[];
+  postTitle: string;
+  postContents: string;
+  tags?: string[];
   createdAt: string;
   comments?: BlogComments[];
   likes?: number;
@@ -31,9 +31,10 @@ export const blogList: BlogPost[] = [
       profileImage: 'https://example.com/profile-image-1.png',
     },
     postId: 1,
-    title: 'First Blog Post',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices augue et ligula lobortis, vel posuere enim auctor. Nunc posuere velit sed sem fringilla tincidunt. Nam et pretium quam, nec feugiat velit. Vestibulum feugiat justo vitae odio bibendum, at rhoncus lectus tincidunt. Donec eget sem sed lacus pellentesque imperdiet. ',
-    tag: ['blogging', 'first-post'],
+    postTitle: 'First Blog Post',
+    postContents:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices augue et ligula lobortis, vel posuere enim auctor. Nunc posuere velit sed sem fringilla tincidunt. Nam et pretium quam, nec feugiat velit. Vestibulum feugiat justo vitae odio bibendum, at rhoncus lectus tincidunt. Donec eget sem sed lacus pellentesque imperdiet. ',
+    tags: ['blogging', 'first-post'],
     createdAt: '2022-03-01T10:00:00Z',
     comments: [
       {
@@ -67,9 +68,10 @@ export const blogList: BlogPost[] = [
       profileImage: 'https://example.com/profile-image-4.png',
     },
     postId: 2,
-    title: '10 Tips for Better Sleep',
-    body: "Are you having trouble sleeping? You're not alone. Here are 10 tips that can help you get a better night's sleep: 1. Stick to a sleep schedule. 2. Create a bedtime routine. 3. Get comfortable. 4. Limit exposure to light. 5. Don't drink caffeine late in the day. 6. Don't drink alcohol before bed. 7. Don't eat a big meal before bedtime. 8. Exercise regularly. 9. Manage stress. 10. Consider sleep aids. ",
-    tag: ['health', 'sleep'],
+    postTitle: '10 Tips for Better Sleep',
+    postContents:
+      "Are you having trouble sleeping? You're not alone. Here are 10 tips that can help you get a better night's sleep: 1. Stick to a sleep schedule. 2. Create a bedtime routine. 3. Get comfortable. 4. Limit exposure to light. 5. Don't drink caffeine late in the day. 6. Don't drink alcohol before bed. 7. Don't eat a big meal before bedtime. 8. Exercise regularly. 9. Manage stress. 10. Consider sleep aids. ",
+    tags: ['health', 'sleep'],
     createdAt: '2022-03-05T12:00:00Z',
     comments: [
       {

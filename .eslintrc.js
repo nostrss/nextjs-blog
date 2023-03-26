@@ -8,8 +8,6 @@ module.exports = {
     'airbnb',
     'plugin:@next/next/recommended',
     'plugin:prettier/recommended',
-    // 'plugin:react/recommended',
-    // 'plugin:import/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -43,16 +41,4 @@ module.exports = {
       typescript: {},
     },
   },
-  // settings: {
-  //   'import/resolver': {
-  //     node: {
-  //       extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  //       paths: ['./src'],
-  //     },
-  //   },
-  // },
-  // alias: {
-  //   map: [['@', './src']],
-  //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  // },
 };
