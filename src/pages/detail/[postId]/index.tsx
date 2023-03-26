@@ -27,7 +27,10 @@ export async function getServerSideProps(context: any) {
   const { postId } = context.params;
 
   const res = await fetchDetailPageData(postId);
-  const data = res?.data;
+  const { data } = res as {
+    data: { pageData: BlogPost };
+  };
+
   return {
     props: {
       data,

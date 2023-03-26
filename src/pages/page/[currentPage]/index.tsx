@@ -18,8 +18,8 @@ export default function BlogListPagination({ data }: IResponseLists) {
     <>
       <p>
         무한스크롤으로 보기
-        <Link href={'/'}>
-          <button>Go</button>
+        <Link href="/">
+          <button type="button">Go</button>
         </Link>
       </p>
       <ul>
@@ -41,7 +41,7 @@ export async function getServerSideProps(context: any) {
   const { currentPage } = context.params;
 
   const res = await fetchDataListPerPage(currentPage);
-  const data = res?.data;
+  const { data } = res as IResponseLists;
   return {
     props: {
       data,

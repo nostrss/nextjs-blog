@@ -1,6 +1,6 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
-import { GlobalStyles } from '@/styles/globalStyle';
+import GlobalStyles from '@/styles/globalStyle';
 import { Global } from '@emotion/react';
 import {
   Hydrate,
@@ -23,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Global styles={GlobalStyles} />
       <Hydrate state={pageProps.dehydratedState}>
         <Header />
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...pageProps} />
         <Footer />
       </Hydrate>

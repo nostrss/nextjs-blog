@@ -12,7 +12,9 @@ export default function BlogList() {
 
   const fetchNextPage = async () => {
     const result = await fetchDataListPerPage(currentPage + 1);
-    const data = result?.data;
+    const { data } = result as {
+      data: { total: number; bloglistData: BlogPost[] };
+    };
     setTotalPage(data.total);
     setBlogLists([...blogLists, ...data.bloglistData]);
     setCurrentPage(currentPage + 1);

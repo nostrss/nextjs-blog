@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const GlobalStyles = css`
+const GlobalStyles = css`
   *,
   *::before,
   *::after {
@@ -18,3 +18,5 @@ export const GlobalStyles = css`
     line-height: 1.5;
   }
 `;
+
+export default GlobalStyles;

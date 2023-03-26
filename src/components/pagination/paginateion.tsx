@@ -22,10 +22,12 @@ export default function Pagination({
 
   const renderPages = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i += 1) {
       pages.push(
         <li key={i}>
-          <button onClick={() => onClickNewPage(i)}>{i}</button>
+          <button type="button" onClick={() => onClickNewPage(i)}>
+            {i}
+          </button>
         </li>,
       );
     }

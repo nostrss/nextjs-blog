@@ -1,11 +1,4 @@
 import styled from '@emotion/styled';
-export default function Header() {
-  return (
-    <WrapperHeader>
-      <h1>헤더입니다</h1>
-    </WrapperHeader>
-  );
-}
 
 export const WrapperHeader = styled.div`
   width: 100%;
@@ -15,3 +8,11 @@ export const WrapperHeader = styled.div`
     color: #fff;
   }
 `;
+
+export default function Header() {
+  return (
+    <WrapperHeader>
+      <h1>헤더입니다</h1>
+    </WrapperHeader>
+  );
+}

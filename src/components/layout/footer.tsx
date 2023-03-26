@@ -1,13 +1,5 @@
 import styled from '@emotion/styled';
 
-export default function Footer() {
-  return (
-    <WrapperFooter>
-      <h1>푸터입니다</h1>
-    </WrapperFooter>
-  );
-}
-
 export const WrapperFooter = styled.div`
   width: 100%;
   border: 1px solid green;
@@ -16,3 +8,11 @@ export const WrapperFooter = styled.div`
     color: #fff;
   }
 `;
+
+export default function Footer() {
+  return (
+    <WrapperFooter>
+      <h1>푸터입니다</h1>
+    </WrapperFooter>
+  );
+}

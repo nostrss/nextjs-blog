@@ -1,3 +1,16 @@
+export type User = {
+  userId: number;
+  name: string;
+  profileImage: string;
+};
+
+export type BlogComments = {
+  createdAt: string;
+  commentId: number;
+  comment: string;
+  user: User;
+};
+
 export type BlogPost = {
   user: User;
   postId: number;
@@ -8,19 +21,6 @@ export type BlogPost = {
   comments?: BlogComments[];
   likes?: number;
   views?: number;
-};
-
-export type BlogComments = {
-  createdAt: string;
-  commentId: number;
-  comment: string;
-  user: User;
-};
-
-export type User = {
-  userId: number;
-  name: string;
-  profileImage: string;
 };
 
 export const blogList: BlogPost[] = [

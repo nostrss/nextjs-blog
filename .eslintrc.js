@@ -5,11 +5,11 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:@next/next/recommended',
-    'plugin:react/recommended',
     'airbnb',
+    'plugin:@next/next/recommended',
     'plugin:prettier/recommended',
-    'plugin:import/recommended',
+    // 'plugin:react/recommended',
+    // 'plugin:import/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,21 +19,40 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'import', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'react/no-array-index-key': 'off',
   },
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        paths: ['./src'],
-      },
+      typescript: {},
     },
   },
-  alias: {
-    map: [['@', './src']],
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  },
+  // settings: {
+  //   'import/resolver': {
+  //     node: {
+  //       extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  //       paths: ['./src'],
+  //     },
+  //   },
+  // },
+  // alias: {
+  //   map: [['@', './src']],
+  //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  // },
 };
