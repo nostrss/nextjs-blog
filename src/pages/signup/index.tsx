@@ -3,6 +3,9 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAuth } from 'firebase.config';
 
 export default function SignUp() {
+  /**
+   * label의 htmlFor와 input의 id에 고유값 부여를 위해 useId 사용
+   */
   const emailInputId = useId();
   const passwordInputId = useId();
   const passwordConfirmInputId = useId();
@@ -24,15 +27,11 @@ export default function SignUp() {
   };
 
   const onSubmitCreatAccount = async () => {
-    await createUserWithEmailAndPassword(firebaseAuth, isEmail, isPassword)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(user);
-      })
-      .catch((error) => {
-        console.error(error);
-        // ..
-      });
+    try {
+      await createUserWithEmailAndPassword(firebaseAuth, isEmail, isPassword);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

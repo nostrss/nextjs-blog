@@ -32,6 +32,7 @@ module.exports = {
       },
     ],
     'react/no-array-index-key': 'off',
+    'no-console': ['error', { allow: ['error'] }],
   },
   settings: {
     'import/parsers': {
