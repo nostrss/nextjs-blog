@@ -24,7 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/**/*",
-    "src/styles/**/*"
+    "src/styles/**/*",
+    "firebase.config.ts"
   ],
   "exclude": ["node_modules"],
   "typedocOptions": {

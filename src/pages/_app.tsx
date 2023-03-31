@@ -1,5 +1,5 @@
-import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
+import Footer from '@/layout/footer';
+import Header from '@/layout/header';
 import GlobalStyles from '@/styles/globalStyle';
 import { Global } from '@emotion/react';
 import {
