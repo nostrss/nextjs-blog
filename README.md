@@ -1,21 +1,9 @@
-# Boilerplate Repository
+## Naming Rule
 
-This repository is a boilerplate that comes with the default setup of
+- Folder : camelCase
+- File : camelCase
+- Constants Variable : UPPER_SNAKE_CASE
 
-- Next.js,
-- TypeScript,
-- ESLint (Airbnb),
-- Prettier,
-- Emotion,
-- TypeDoc.
+## typedoc
 
-## Technologies
-
-- Next.js
-- TypeScript
-- ESLint (Airbnb)
-- Prettier
-- Emotion
-- TypeDoc
-- Axios
-- React-query
+> typedoc --entryPointStrategy expand ./src

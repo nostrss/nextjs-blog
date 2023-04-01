@@ -1,34 +1,36 @@
-import React, { useId, useState } from 'react';
+import React from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAuth } from 'firebase.config';
+import { useRouter } from 'next/router';
+import useGetId from '@/hooks/useGetId';
+import useInput from '@/hooks/useInput';
 
 export default function SignUp() {
+  const router = useRouter();
+
   /**
    * label의 htmlFor와 input의 id에 고유값 부여를 위해 useId 사용
    */
-  const emailInputId = useId();
-  const passwordInputId = useId();
-  const passwordConfirmInputId = useId();
+  const emailInputId = useGetId({ prefix: 'SignUp' });
+  const passwordInputId = useGetId({ prefix: 'SignUp' });
+  const passwordConfirmInputId = useGetId({ prefix: 'SignUp' });
 
-  const [isEmail, setIsEmail] = useState('');
-  const [isPassword, setIsPassword] = useState('');
-  const [, setIsPasswordConfirm] = useState('');
-
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEmail(e.target.value);
-  };
-
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsPassword(e.target.value);
-  };
-
-  const onChangePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsPasswordConfirm(e.target.value);
-  };
+  const { inputValue, onChangeUseInput } = useInput({
+    initialValue: {
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    },
+  });
 
   const onSubmitCreatAccount = async () => {
     try {
-      await createUserWithEmailAndPassword(firebaseAuth, isEmail, isPassword);
+      await createUserWithEmailAndPassword(
+        firebaseAuth,
+        inputValue.email,
+        inputValue.password,
+      );
+      router.push('/');
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +51,7 @@ export default function SignUp() {
                   id={emailInputId}
                   name="email"
                   placeholder="email"
-                  onChange={onChangeEmail}
+                  onChange={onChangeUseInput}
                 />
               </label>
             </li>
@@ -61,7 +63,7 @@ export default function SignUp() {
                   id={passwordInputId}
                   name="password"
                   placeholder="password"
-                  onChange={onChangePassword}
+                  onChange={onChangeUseInput}
                 />
               </label>
             </li>
@@ -71,9 +73,9 @@ export default function SignUp() {
                 <input
                   type="password"
                   id={passwordConfirmInputId}
-                  name="password"
+                  name="passwordConfirm"
                   placeholder="password"
-                  onChange={onChangePasswordConfirm}
+                  onChange={onChangeUseInput}
                 />
               </label>
             </li>
