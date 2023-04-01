@@ -1,3 +1,4 @@
+import useLoginCheck from '@/hooks/useLoginCheck';
 import styled from '@emotion/styled';
 
 export const WrapperHeader = styled.div`
@@ -10,9 +11,12 @@ export const WrapperHeader = styled.div`
 `;
 
 export default function Header() {
+  const userData = useLoginCheck();
+
   return (
     <WrapperHeader>
       <h1>헤더입니다</h1>
+      {userData?.email}
     </WrapperHeader>
   );
 }

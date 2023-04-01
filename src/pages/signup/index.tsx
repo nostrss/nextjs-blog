@@ -15,6 +15,12 @@ export default function SignUp() {
   const passwordInputId = useGetId({ prefix: 'SignUp' });
   const passwordConfirmInputId = useGetId({ prefix: 'SignUp' });
 
+  /**
+   * useInput 사용
+   * initialValue에 input 초기값 설정
+   * onChangeUseInput에 onChange 이벤트 핸들러 설정
+   * inputValue에 input의 value 값 return
+   */
   const { inputValue, onChangeUseInput } = useInput({
     initialValue: {
       email: '',
@@ -23,7 +29,10 @@ export default function SignUp() {
     },
   });
 
-  const onSubmitCreatAccount = async () => {
+  const onSubmitCreatAccount = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
+    event?.preventDefault();
     try {
       await createUserWithEmailAndPassword(
         firebaseAuth,

@@ -7,7 +7,7 @@ export default function useInput(initialInputValue: any) {
     const { name, value } = event.target;
     setInputValue({
       ...inputValue,
-      [name]: value,
+      [name]: value.trim(),
     });
   };
 
