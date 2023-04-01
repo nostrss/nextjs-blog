@@ -1,5 +1,8 @@
 import React from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { firebaseAuth } from 'firebase.config';
 import { useRouter } from 'next/router';
 import useGetId from '@/hooks/useGetId';
@@ -46,6 +49,23 @@ export default function RegisterForm({ path }: { path: string }) {
     }
   };
 
+  const onSubmitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    try {
+      await signInWithEmailAndPassword(
+        firebaseAuth,
+        inputValue.email,
+        inputValue.password,
+      );
+
+      router.push('/');
+    } catch (error) {
+      if (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <RegisterFormUI
       emailInputId={emailInputId}
@@ -54,6 +74,7 @@ export default function RegisterForm({ path }: { path: string }) {
       onChangeUseInput={onChangeUseInput}
       onSubmitCreatAccount={onSubmitCreatAccount}
       path={path}
+      onSubmitLogin={onSubmitLogin}
     />
   );
 }

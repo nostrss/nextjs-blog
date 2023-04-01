@@ -7,13 +7,17 @@ export default function RegisterFormUI({
   onChangeUseInput,
   onSubmitCreatAccount,
   path,
+  onSubmitLogin,
 }: IPropsRegisterFormUI) {
   return (
     <div>
       {path === 'signup' ? <h1>Sign Up</h1> : <h1>Log In</h1>}
       <fieldset>
         <legend>Sign up</legend>
-        <form method="post" onSubmit={onSubmitCreatAccount}>
+        <form
+          method="post"
+          onSubmit={path === 'signup' ? onSubmitCreatAccount : onSubmitLogin}
+        >
           <ul>
             <li>
               <label htmlFor={emailInputId}>
@@ -54,7 +58,9 @@ export default function RegisterFormUI({
               </li>
             )}
           </ul>
-          <button type="submit">Sign Up</button>
+          <button type="submit">
+            {path === 'signup' ? 'Sign Up' : 'login'}
+          </button>
         </form>
       </fieldset>
     </div>

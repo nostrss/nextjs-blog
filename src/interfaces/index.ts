@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 
 export interface IUsedGetId {
@@ -11,5 +13,6 @@ export interface IPropsRegisterFormUI {
   passwordConfirmInputId?: string;
   onChangeUseInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitCreatAccount: (event: React.FormEvent<HTMLFormElement>) => void;
+  onSubmitLogin: (event: React.FormEvent<HTMLFormElement>) => void;
   path?: string;
 }
