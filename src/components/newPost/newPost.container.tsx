@@ -5,6 +5,8 @@ import { firebaseDb } from 'firebase.config';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { formats } from '@/constants/constants';
+import { userState } from '@/store/userState';
+import { useRecoilState } from 'recoil';
 import NewPostUI from './newPost.presenter';
 
 export default function NewPostContainer() {
@@ -14,6 +16,7 @@ export default function NewPostContainer() {
     title: '',
   });
   const titleInputId = useGetId({});
+  const [user] = useRecoilState(userState);
 
   const imageHandler = async () => {
     const input = document.createElement('input');
@@ -51,6 +54,7 @@ export default function NewPostContainer() {
         title: inputValue.title,
         contents: isPostContents,
         timeStamp: serverTimestamp(),
+        userId: user.userId,
       });
     } catch (error) {
       console.error(error);

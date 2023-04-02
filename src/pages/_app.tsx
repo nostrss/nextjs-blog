@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 
 // const queryClient = new QueryClient();
 
@@ -20,13 +21,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Global styles={GlobalStyles} />
-      <Hydrate state={pageProps.dehydratedState}>
-        <Header />
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <Component {...pageProps} />
-        <Footer />
-      </Hydrate>
+      <RecoilRoot>
+        <Global styles={GlobalStyles} />
+        <Hydrate state={pageProps.dehydratedState}>
+          <Header />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
+          <Footer />
+        </Hydrate>
+      </RecoilRoot>
     </QueryClientProvider>
   );
 }

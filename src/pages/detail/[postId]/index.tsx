@@ -1,42 +1,34 @@
-import { fetchDetailPageData } from '@/common/api';
-import { BlogPost } from '@/mokData/dataList';
+import { userState } from '@/store/userState';
+import { firebaseDb } from 'firebase.config';
+import { deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 import { Suspense } from 'react';
+import { useRecoilState } from 'recoil';
 
-interface IPropsDetail {
-  data: {
-    pageData: BlogPost;
+export default function DetailPage({ data }: any) {
+  const router = useRouter();
+  const [user] = useRecoilState(userState);
+
+  const onClickDelete = async () => {
+    try {
+      await deleteDoc(doc(firebaseDb, 'post', data.postId));
+      router.push(`/`);
+    } catch (error) {
+      console.error(error);
+    }
   };
-}
-
-export default function DetailPage({ data }: IPropsDetail) {
-  const { pageData } = data;
 
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
       <div>
-        <h1>Title : {pageData.postTitle}</h1>
-        <p>Body : {pageData.postContents}</p>
-        <p>createdAt : {pageData.createdAt}</p>
-        <p>Likes : {pageData.likes}</p>
-        <p>Views : {pageData.views}</p>
-        <p>User.name{pageData.user.name}</p>
-        <p>Tag</p>
-        <ul>
-          {pageData.tags?.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-        <p>Comments</p>
-        <ul>
-          {pageData.comments?.map((item, index) => (
-            <li key={index}>
-              <p>Comment : {item.comment}</p>
-              <p>createdAt : {item.createdAt}</p>
-              <p>user.name : {item.user.name}</p>
-            </li>
-          ))}
-        </ul>
+        <h1>Title : {data.title}</h1>
+        <p>Body : {data.contents}</p>
       </div>
+      {user.userId === data.userId && (
+        <button type="button" onClick={onClickDelete}>
+          Delete
+        </button>
+      )}
     </Suspense>
   );
 }
@@ -44,10 +36,21 @@ export default function DetailPage({ data }: IPropsDetail) {
 export async function getServerSideProps(context: any) {
   const { postId } = context.params;
 
-  const res = await fetchDetailPageData(postId);
-  const { data } = res as {
-    data: { pageData: BlogPost };
+  const fetchPost = async (
+    fDb: any,
+    firebaseColID: string,
+    firebaseDocID: string,
+  ) => {
+    const postData = await getDoc(doc(fDb, firebaseColID, firebaseDocID));
+    return JSON.stringify(postData.data());
   };
+
+  const data = await fetchPost(firebaseDb, 'post', postId).then((res) => {
+    return {
+      postId,
+      ...JSON.parse(res),
+    };
+  });
 
   return {
     props: {
