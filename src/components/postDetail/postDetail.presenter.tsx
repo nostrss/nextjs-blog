@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 
 export default function PostDetailUI({
   onClickDelete,
@@ -8,10 +8,14 @@ export default function PostDetailUI({
   editUrl,
 }: any) {
   return (
-    <Suspense fallback={<h1>Loading...</h1>}>
+    <div>
       <div>
         <h1>Title : {data?.title}</h1>
-        <p>Body : {data?.contents}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: data?.contents,
+          }}
+        />
       </div>
       {isShowOptionButton && (
         <>
@@ -23,6 +27,6 @@ export default function PostDetailUI({
           </Link>
         </>
       )}
-    </Suspense>
+    </div>
   );
 }
