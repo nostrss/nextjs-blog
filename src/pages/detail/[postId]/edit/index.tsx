@@ -1,9 +1,9 @@
-import PostDetail from '@/components/postDetail/postDetail.container';
+import EditPost from '@/components/editPost/editPost.container';
 import { firebaseDb } from 'firebase.config';
 import { doc, getDoc } from 'firebase/firestore';
 
-export default function DetailPage({ data }: any) {
-  return <PostDetail data={data} />;
+export default function EditPostPage({ data }: any) {
+  return <EditPost data={data} />;
 }
 
 export async function getServerSideProps(context: any) {

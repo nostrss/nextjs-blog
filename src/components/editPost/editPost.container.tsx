@@ -1,38 +1,24 @@
+import { formats } from '@/constants/constants';
 import { useMemo, useRef, useState } from 'react';
+// import { useRecoilState } from 'recoil';
+// import { userState } from '@/store/userState';
+import { useRouter } from 'next/router';
 import useInput from '@/hooks/useInput';
 import useGetId from '@/hooks/useGetId';
 import { firebaseDb } from 'firebase.config';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { v4 as uuidv4 } from 'uuid';
-import { formats } from '@/constants/constants';
-import { userState } from '@/store/userState';
-import { useRecoilState } from 'recoil';
-import { useRouter } from 'next/router';
-import NewPostUI from './newPost.presenter';
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import EditPostUI from './editPost.presenter';
 
-export default function NewPostContainer() {
+export default function EditPost({ data }: any) {
   const quillRef: any = useRef();
   const [isPostContents, setIsPostContents] = useState('');
-  const [user] = useRecoilState(userState);
+  // const [user] = useRecoilState(userState);
   const router = useRouter();
 
   const { inputValue, onChangeUseInput } = useInput({
     title: '',
   });
   const titleInputId = useGetId({});
-
-  // const imageHandler = async () => {
-  //   const input = document.createElement('input');
-  //   input.setAttribute('type', 'file');
-  //   input.setAttribute('accept', 'image/*');
-  //   input.click();
-  //   input.onchange = async () => {
-  //     const file: any = input && input.files ? input.files[0] : null;
-  //     const formData = new FormData();
-  //     formData.append('file', file);
-  //     // const quillObj = quillRef.current.getEditor();
-  //   };
-  // };
 
   const modules = useMemo(() => {
     return {
@@ -49,18 +35,16 @@ export default function NewPostContainer() {
     };
   }, []);
 
-  const onClickSave = async () => {
-    const postId = uuidv4();
+  const onClickUpdate = async () => {
+    const updateRef = doc(firebaseDb, 'post', data.postId);
+
     try {
-      await setDoc(doc(firebaseDb, 'post', postId), {
-        postId,
+      await updateDoc(updateRef, {
         title: inputValue.title,
         contents: isPostContents,
-        createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
-        userId: user.userId,
       }).then(() => {
-        router.push(`/detail/${postId}`);
+        router.push(`/detail/${data.postId}`);
       });
     } catch (error) {
       console.error(error);
@@ -68,7 +52,8 @@ export default function NewPostContainer() {
   };
 
   return (
-    <NewPostUI
+    <EditPostUI
+      data={data}
       titleInputId={titleInputId}
       modules={modules}
       formats={formats}
@@ -76,7 +61,8 @@ export default function NewPostContainer() {
       quillRef={quillRef}
       setIsPostContents={setIsPostContents}
       onChangeUseInput={onChangeUseInput}
-      onClickSave={onClickSave}
+      onClickUpdate={onClickUpdate}
+      inputValue={inputValue}
     />
   );
 }

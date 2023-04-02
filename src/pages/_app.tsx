@@ -11,8 +11,12 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 
-// const queryClient = new QueryClient();
-
+/**
+ * _app.tsx
+ * 제일 처음 프로젝트가 실행될 때 실행되는 파일
+ * @param param0
+ * @returns
+ */
 export default function App({ Component, pageProps }: AppProps) {
   /**
    * react-query 사용을 위한 선언
