@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import useInput from '@/hooks/useInput';
 import useGetId from '@/hooks/useGetId';
 import { firebaseDb } from 'firebase.config';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { formats } from '@/constants/constants';
 import NewPostUI from './newPost.presenter';
@@ -47,8 +47,10 @@ export default function NewPostContainer() {
     const postId = uuidv4();
     try {
       await setDoc(doc(firebaseDb, 'post', postId), {
+        postId,
         title: inputValue.title,
         contents: isPostContents,
+        timeStamp: serverTimestamp(),
       });
     } catch (error) {
       console.error(error);

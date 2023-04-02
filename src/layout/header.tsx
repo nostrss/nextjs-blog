@@ -28,7 +28,9 @@ export default function Header() {
 
   return (
     <WrapperHeader>
-      <h1>헤더입니다</h1>
+      <Link href="/">
+        <h1>헤더입니다</h1>
+      </Link>
       <div>
         {userData ? (
           <>
