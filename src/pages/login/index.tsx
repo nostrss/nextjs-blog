@@ -1,6 +1,6 @@
+import SignUpOrLogIn from '@/components/signUp-logIn-Form/signUp_logIn.container';
 import React from 'react';
-import RegisterForm from '@/components/registerForm/registerForm.container';
 
-export default function Login() {
-  return <RegisterForm path="login" />;
+export default function LoginPage() {
+  return <SignUpOrLogIn path="login" />;
 }

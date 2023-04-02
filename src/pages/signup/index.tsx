@@ -1,5 +1,5 @@
-import RegisterForm from '@/components/registerForm/registerForm.container';
+import SignUpOrLogIn from '@/components/signUp-logIn-Form/signUp_logIn.container';
 
-export default function SignUp() {
-  return <RegisterForm path="signup" />;
+export default function SignUpPage() {
+  return <SignUpOrLogIn path="signup" />;
 }

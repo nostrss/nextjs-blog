@@ -1,6 +1,6 @@
 import { IPropsRegisterFormUI } from '@/interfaces';
 
-export default function RegisterFormUI({
+export default function SignUpOrLogInUI({
   emailInputId,
   passwordInputId,
   passwordConfirmInputId,

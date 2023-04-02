@@ -7,9 +7,9 @@ import { firebaseAuth } from 'firebase.config';
 import { useRouter } from 'next/router';
 import useGetId from '@/hooks/useGetId';
 import useInput from '@/hooks/useInput';
-import RegisterFormUI from './registerForm.presenter';
+import RegisterFormUI from './signUp_login.presenter';
 
-export default function RegisterForm({ path }: { path: string }) {
+export default function SignUpOrLogIn({ path }: { path: string }) {
   const router = useRouter();
 
   /**
@@ -26,11 +26,9 @@ export default function RegisterForm({ path }: { path: string }) {
    * inputValue에 input의 value 값 return
    */
   const { inputValue, onChangeUseInput } = useInput({
-    initialValue: {
-      email: '',
-      password: '',
-      passwordConfirm: '',
-    },
+    email: '',
+    password: '',
+    passwordConfirm: '',
   });
 
   const onSubmitCreatAccount = async (

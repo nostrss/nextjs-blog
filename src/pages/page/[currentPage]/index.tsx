@@ -12,7 +12,7 @@ interface IResponseLists {
   };
 }
 
-export default function BlogListPagination({ data }: IResponseLists) {
+export default function BlogListPaginationPage({ data }: IResponseLists) {
   return (
     <>
       <p>
