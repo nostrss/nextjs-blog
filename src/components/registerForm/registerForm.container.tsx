@@ -50,7 +50,7 @@ export default function RegisterForm({ path }: { path: string }) {
   };
 
   const onSubmitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event?.preventDefault();
+    if (event) event.preventDefault();
     try {
       await signInWithEmailAndPassword(
         firebaseAuth,

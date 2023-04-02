@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { v4 as uuidv4 } from 'uuid';
-import BlogListItem from '../blogListItem/blogListItem';
+import BlogListItem from './blogListItem/blogListItem';
 
 export default function BlogList() {
   const [blogLists, setBlogLists] = useState<BlogPost[]>([]);

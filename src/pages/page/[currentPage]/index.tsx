@@ -1,5 +1,5 @@
 import { fetchDataListPerPage } from '@/common/api';
-import BlogListItem from '@/components/blogListItem/blogListItem';
+import BlogListItem from '@/components/blogList/blogListItem/blogListItem';
 import Pagination from '@/components/pagination/paginateion';
 import { BlogPost } from '@/mokData/dataList';
 import Link from 'next/link';
