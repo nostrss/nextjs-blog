@@ -12,10 +12,9 @@ import React from 'react';
 import { RecoilRoot } from 'recoil';
 
 /**
- * _app.tsx
- * 제일 처음 프로젝트가 실행될 때 실행되는 파일
- * @param param0
- * @returns
+ * 애플리케이션의 루트 컴포넌트입니다.
+ * @param {object} AppProps - 애플리케이션 속성 객체입니다.
+ * @returns {JSX.Element} - 애플리케이션의 루트 엘리먼트를 반환합니다.
  */
 export default function App({ Component, pageProps }: AppProps) {
   /**
