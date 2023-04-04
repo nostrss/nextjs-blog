@@ -26,6 +26,9 @@ export default function Header() {
         ...user,
         userId: userData?.uid,
         email: userData?.email,
+        displayName: userData?.displayName,
+        photoURL: userData?.photoURL,
+        screenName: userData?.reloadUserInfo.providerUserInfo[0].screenName,
       });
     }
   }, [userData]);
@@ -49,7 +52,11 @@ export default function Header() {
       <div>
         {userData ? (
           <>
-            {userData?.email}
+            <ul>
+              <li>{userData?.email}</li>
+              <li>{user?.screenName}</li>
+            </ul>
+
             <button type="button" onClick={onClickLogout}>
               Sign Out
             </button>

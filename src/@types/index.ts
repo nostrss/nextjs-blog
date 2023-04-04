@@ -1,14 +1,16 @@
-export type User = {
+export type LoginUser = {
   userId: number;
   name: string;
-  profileImage: string;
+  displayName: string;
+  photoURL: string;
+  screenName: string;
 };
 
 export type BlogComments = {
   createdAt: string;
   commentId: number;
   comment: string;
-  user: User;
+  user: LoginUser;
 };
 
 export type BlogPost = {

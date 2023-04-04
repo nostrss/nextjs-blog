@@ -7,7 +7,10 @@ export const userState = atom({
   key: 'userState',
   default: {
     userId: '',
-    email: '',
+    email: '' as string | null,
+    displayName: '' as string | null,
+    photoURL: '' as string | null,
+    screenName: '' as any,
   },
 });
 

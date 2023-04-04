@@ -15,6 +15,7 @@ export interface IPropsRegisterFormUI {
   onSubmitCreatAccount: (event: React.FormEvent<HTMLFormElement>) => void;
   onSubmitLogin: (event: React.FormEvent<HTMLFormElement>) => void;
   path?: string;
+  onClickGithubLogin: () => void;
 }
 
 export interface IPropsNewPostUI {

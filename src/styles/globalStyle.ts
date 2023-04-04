@@ -17,6 +17,10 @@ const GlobalStyles = css`
     font-size: 16px;
     line-height: 1.5;
   }
+
+  button {
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyles;

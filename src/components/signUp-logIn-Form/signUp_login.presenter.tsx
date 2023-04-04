@@ -8,6 +8,7 @@ export default function SignUpOrLogInUI({
   onSubmitCreatAccount,
   path,
   onSubmitLogin,
+  onClickGithubLogin,
 }: IPropsRegisterFormUI) {
   return (
     <div>
@@ -62,6 +63,9 @@ export default function SignUpOrLogInUI({
             {path === 'signup' ? 'Sign Up' : 'login'}
           </button>
         </form>
+        <button type="button" onClick={onClickGithubLogin}>
+          github login
+        </button>
       </fieldset>
     </div>
   );
