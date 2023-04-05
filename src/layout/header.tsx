@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import Image from 'next/image';
 
 export const WrapperHeader = styled.div`
   width: 100%;
@@ -55,6 +56,15 @@ export default function Header() {
             <ul>
               <li>{userData?.email}</li>
               <li>{user?.screenName}</li>
+              {user?.photoURL && (
+                <Image
+                  src={user?.photoURL}
+                  alt="user profile image"
+                  width={80}
+                  height={80}
+                />
+              )}
+              {/* <img src={user.photoURL} alt="" /> */}
             </ul>
 
             <button type="button" onClick={onClickLogout}>
