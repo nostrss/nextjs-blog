@@ -8,6 +8,7 @@ import { formats } from '@/constants/constants';
 import { userState } from '@/store/userState';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
+import hljs from 'highlight.js';
 import NewPostUI from './newPost.presenter';
 
 export default function NewPostContainer() {
@@ -34,13 +35,21 @@ export default function NewPostContainer() {
   //   };
   // };
 
+  hljs.configure({
+    languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql'],
+  });
+
   const modules = useMemo(() => {
     return {
+      syntax: {
+        highlight: (text: any) => hljs.highlightAuto(text).value,
+      },
       toolbar: {
         container: [
           ['image'],
           [{ header: [1, 2, 3, false] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
         ],
         // handlers: {
         //   image: imageHandler,

@@ -1,4 +1,24 @@
 import Link from 'next/link';
+import 'react-quill/dist/quill.bubble.css';
+import 'highlight.js/styles/atom-one-dark.css';
+import hljs from 'highlight.js';
+import styled from '@emotion/styled';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
+
+const ReactQuill = dynamic(import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
+
+export const WrapperContents = styled.p`
+  pre {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+  }
+`;
+
 // import { Suspense } from 'react';
 
 export default function PostDetailUI({
@@ -7,15 +27,48 @@ export default function PostDetailUI({
   data,
   editUrl,
 }: any) {
+  // const contents = hljs.highlightAuto(data?.contents).value;
+
+  hljs.configure({
+    languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql'],
+  });
+
+  const modules = useMemo(() => {
+    return {
+      syntax: {
+        highlight: (text: any) => hljs.highlightAuto(text).value,
+      },
+      toolbar: {
+        container: [
+          ['image'],
+          [{ header: [1, 2, 3, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+        ],
+        // handlers: {
+        //   image: imageHandler,
+        // },
+      },
+    };
+  }, []);
+
   return (
     <div>
       <div>
         <h1>Title : {data?.title}</h1>
-        <p
-          dangerouslySetInnerHTML={{
-            __html: data?.contents,
-          }}
+        <ReactQuill
+          style={{ height: '100%' }}
+          theme="bubble"
+          value={data?.contents}
+          readOnly
+          modules={modules}
+          // formats={formats}
         />
+        {/* <WrapperContents
+          dangerouslySetInnerHTML={{
+            __html: contents,
+          }}
+        /> */}
       </div>
       {isShowOptionButton && (
         <>

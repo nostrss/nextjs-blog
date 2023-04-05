@@ -6,6 +6,7 @@ export const formats = [
   'strike',
   'blockquote',
   'image',
+  'code-block',
 ];
 
 export const constants = {};

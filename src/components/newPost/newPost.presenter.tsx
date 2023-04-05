@@ -1,6 +1,7 @@
 import { IPropsNewPostUI } from '@/interfaces';
 import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const ReactQuill = dynamic(import('react-quill'), {
   ssr: false,
@@ -31,7 +32,7 @@ export default function NewPostUI({
       </label>
       <ReactQuill
         style={{ height: '100%' }}
-        theme="snow"
+        theme="bubble"
         value={isPostContents}
         onChange={setIsPostContents}
         modules={modules}

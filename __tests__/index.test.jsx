@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Home from '@/pages/index';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
+import Header from '@/layout/header';
+import Footer from '@/layout/footer';
 import '@testing-library/jest-dom';
 
 describe('Home', () => {
