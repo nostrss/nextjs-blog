@@ -68,6 +68,8 @@ export default function NewPostContainer() {
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
         userId: user.userId,
+        userName: user.displayName,
+        userNickname: user.screenName,
       }).then(() => {
         router.push(`/detail/${postId}`);
       });

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import 'react-quill/dist/quill.bubble.css';
 import 'highlight.js/styles/atom-one-dark.css';
 import hljs from 'highlight.js';
-import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
@@ -10,14 +9,6 @@ const ReactQuill = dynamic(import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 });
-
-export const WrapperContents = styled.p`
-  pre {
-    background-color: #23241f;
-    color: #f8f8f2;
-    overflow: visible;
-  }
-`;
 
 // import { Suspense } from 'react';
 
@@ -27,8 +18,6 @@ export default function PostDetailUI({
   data,
   editUrl,
 }: any) {
-  // const contents = hljs.highlightAuto(data?.contents).value;
-
   hljs.configure({
     languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql'],
   });
