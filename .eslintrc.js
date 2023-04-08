@@ -36,6 +36,8 @@ module.exports = {
     'react/display-name': 'off',
     'func-names': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-restricted-export': 'off',
+    'import/no-named-as-default': 'off',
   },
   settings: {
     'import/parsers': {

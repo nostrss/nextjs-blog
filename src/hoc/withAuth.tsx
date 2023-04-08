@@ -2,7 +2,7 @@ import useLoginCheck from '@/hooks/useLoginCheck';
 import { useRouter } from 'next/router';
 import { ComponentType, useEffect } from 'react';
 
-export const WithAuth = (Component: ComponentType) =>
+export const withAuth = (Component: ComponentType) =>
   function (props: any) {
     const router = useRouter();
     const userData = useLoginCheck();
@@ -16,4 +16,4 @@ export const WithAuth = (Component: ComponentType) =>
     return <Component {...props} />;
   };
 
-export default WithAuth;
+export default withAuth;
