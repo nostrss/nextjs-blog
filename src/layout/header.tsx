@@ -56,15 +56,16 @@ export default function Header() {
             <ul>
               <li>{userData?.email}</li>
               <li>{user?.screenName}</li>
-              {user?.photoURL && (
-                <Image
-                  src={user?.photoURL}
-                  alt="user profile image"
-                  width={80}
-                  height={80}
-                />
-              )}
-              {/* <img src={user.photoURL} alt="" /> */}
+              <Link href={`/profile/${user.screenName}`}>
+                {user?.photoURL && (
+                  <Image
+                    src={user?.photoURL}
+                    alt="user profile image"
+                    width={80}
+                    height={80}
+                  />
+                )}
+              </Link>
             </ul>
 
             <button type="button" onClick={onClickLogout}>

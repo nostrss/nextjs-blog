@@ -1,5 +1,5 @@
 import { DocumentData } from 'firebase/firestore';
-import dayjs from 'dayjs';
+import { convertUnixToUct } from '@/common/utils';
 
 export default function ProfileUI({ data }: { data: DocumentData[] }) {
   return (
@@ -9,7 +9,7 @@ export default function ProfileUI({ data }: { data: DocumentData[] }) {
           <ul>
             <li>{postItem.title}</li>
             <li>{postItem.contents}</li>
-            {dayjs.unix(postItem.createdAt.seconds).format('YYYY-MM-DD')}
+            {convertUnixToUct(postItem.createdAt.seconds)}
           </ul>
         </div>
       ))}

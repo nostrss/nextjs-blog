@@ -10,8 +10,6 @@ const ReactQuill = dynamic(import('react-quill'), {
   loading: () => <p>Loading ...</p>,
 });
 
-// import { Suspense } from 'react';
-
 export default function PostDetailUI({
   onClickDelete,
   isShowOptionButton,
@@ -53,11 +51,6 @@ export default function PostDetailUI({
           modules={modules}
           // formats={formats}
         />
-        {/* <WrapperContents
-          dangerouslySetInnerHTML={{
-            __html: contents,
-          }}
-        /> */}
       </div>
       {isShowOptionButton && (
         <>
