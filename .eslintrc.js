@@ -32,8 +32,10 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'react/no-array-index-key': 'off',
     'no-console': ['error', { allow: ['error'] }],
+    'react/display-name': 'off',
+    'func-names': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     'import/parsers': {

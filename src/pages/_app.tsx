@@ -28,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <Global styles={GlobalStyles} />
         <Hydrate state={pageProps.dehydratedState}>
           <Header />
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Component {...pageProps} />
           <Footer />
         </Hydrate>
