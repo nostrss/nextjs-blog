@@ -70,8 +70,13 @@ export default function NewPostContainer() {
         userId: user.userId,
         userName: user.displayName,
         userNickname: user.screenName,
-      }).then(() => {
-        router.push(`/detail/${postId}`);
+      }).then(async () => {
+        await setDoc(doc(firebaseDb, 'comments', postId), {
+          postId,
+          commentsList: [],
+        }).then(() => {
+          router.push(`/detail/${postId}`);
+        });
       });
     } catch (error) {
       console.error(error);

@@ -28,3 +28,8 @@ export interface IPropsNewPostUI {
   onChangeUseInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSave: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
+
+export interface IPropsNewCommentsUI {
+  onChangeUseInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickSaveComments: (event: React.FormEvent<HTMLFormElement>) => void;
+}

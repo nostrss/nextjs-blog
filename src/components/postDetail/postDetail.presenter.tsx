@@ -4,6 +4,7 @@ import 'highlight.js/styles/atom-one-dark.css';
 import hljs from 'highlight.js';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
+import NewComment from '../newComment/newComment.container';
 
 const ReactQuill = dynamic(import('react-quill'), {
   ssr: false,
@@ -62,6 +63,7 @@ export default function PostDetailUI({
           </Link>
         </>
       )}
+      <NewComment />
     </div>
   );
 }
