@@ -1,14 +1,22 @@
+import { fetchPostDetail } from '@/common/firebase.layer';
 import PostDetail from '@/components/postDetail/postDetail.container';
-import { firebaseDb } from 'firebase.config';
-import { doc, getDoc } from 'firebase/firestore';
+import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 
 /**
  * 블로그 상세페이지 최상위 컴포넌트
  * @param param0 data: 상세페이지에 필요한 데이터
  * @returns PostDetail : 상세페이지 컴포넌트
  */
-export default function DetailPage({ data }: any) {
-  return <PostDetail data={data} />;
+export default function DetailPage({ postId }: { postId: string }) {
+  const { data, isFetching } = useQuery({
+    queryKey: ['fetchPostDatail'],
+    queryFn: async () => {
+      const response = await fetchPostDetail(postId);
+      return response;
+    },
+  });
+
+  return <PostDetail data={data} isFetching={isFetching} />;
 }
 
 /**
@@ -20,28 +28,18 @@ export async function getServerSideProps(context: any) {
   // 컨텍스트 매개변수에서 게시물 ID를 가져옵니다.
   const { postId } = context.params;
 
-  // Firebase에서 게시물 데이터를 가져오는 함수를 정의합니다.
-  const fetchPost = async (
-    fDb: any,
-    firebaseColID: string,
-    firebaseDocID: string,
-  ) => {
-    const postData = await getDoc(doc(fDb, firebaseColID, firebaseDocID));
-    return JSON.stringify(postData.data());
-  };
+  const queryClient = new QueryClient();
 
-  // Firebase에서 게시물 데이터를 가져와 객체로 파싱합니다.
-  const data = await fetchPost(firebaseDb, 'post', postId).then((res) => {
-    return {
-      postId,
-      ...JSON.parse(res),
-    };
+  await queryClient.prefetchQuery(['fetchPostDatail'], async () => {
+    const data = await fetchPostDetail(postId);
+    return data;
   });
 
   // props 객체에 게시물 데이터와 ID를 포함하여 반환합니다.
   return {
     props: {
-      data,
+      postId,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }

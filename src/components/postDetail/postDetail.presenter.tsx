@@ -17,6 +17,7 @@ export default function PostDetailUI({
   isShowOptionButton,
   data,
   editUrl,
+  isFetching,
 }: any) {
   hljs.configure({
     languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql'],
@@ -43,29 +44,33 @@ export default function PostDetailUI({
 
   return (
     <div>
-      <div>
-        <h1>Title : {data?.title}</h1>
-        <ReactQuill
-          style={{ height: '100%' }}
-          theme="bubble"
-          value={data?.contents}
-          readOnly
-          modules={modules}
-          // formats={formats}
-        />
-      </div>
-      {isShowOptionButton && (
+      {isFetching && <div>Loading...</div>}
+      {!isFetching && (
         <>
-          <button type="button" onClick={onClickDelete}>
-            Delete
-          </button>
-          <Link href={editUrl}>
-            <button type="button">Edit</button>
-          </Link>
+          <div>
+            <h1>Title : {data?.title}</h1>
+            <ReactQuill
+              style={{ height: '100%' }}
+              theme="bubble"
+              value={data?.contents}
+              readOnly
+              modules={modules}
+            />
+          </div>
+          {isShowOptionButton && (
+            <>
+              <button type="button" onClick={onClickDelete}>
+                Delete
+              </button>
+              <Link href={editUrl}>
+                <button type="button">Edit</button>
+              </Link>
+            </>
+          )}
+          <NewComment />
+          <CommentList />
         </>
       )}
-      <NewComment />
-      <CommentList />
     </div>
   );
 }

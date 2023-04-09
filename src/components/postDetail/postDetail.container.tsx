@@ -5,7 +5,13 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import PostDetailUI from './postDetail.presenter';
 
-export default function PostDetail({ data }: any) {
+export default function PostDetail({
+  data,
+  isFetching,
+}: {
+  data: any;
+  isFetching: boolean;
+}) {
   const router = useRouter();
   const [user] = useRecoilState(userState);
   const editUrl = `/detail/${data?.postId}/edit`;
@@ -27,6 +33,7 @@ export default function PostDetail({ data }: any) {
       isShowOptionButton={isShowOptionButton}
       data={data}
       editUrl={editUrl}
+      isFetching={isFetching}
     />
   );
 }
