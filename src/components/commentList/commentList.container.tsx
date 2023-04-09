@@ -59,11 +59,34 @@ export default function CommentList() {
     }
   };
 
+  const onClickUpdateComments = async (updatdCommentData: any) => {
+    if (postId === undefined) return;
+
+    const newCommentArray = commentList.filter((comment: any) => {
+      return comment.commentId !== updatdCommentData[0].commentId;
+    });
+
+    // @ts-ignore
+    const updateRef = doc(firebaseDb, 'comments', postId);
+
+    try {
+      await updateDoc(updateRef, {
+        commentsList: [...newCommentArray, ...updatdCommentData],
+      }).then(() => {
+        // 성공
+        setIsUpdateComment(true);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <CommentListUI
       commentList={commentList}
       isMyComment={isMyComment}
       onClickCommentDelete={onClickCommentDelete}
+      onClickUpdateComments={onClickUpdateComments}
     />
   );
 }
