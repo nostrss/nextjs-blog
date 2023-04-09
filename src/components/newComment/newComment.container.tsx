@@ -6,12 +6,14 @@ import { userState } from '@/store/userState';
 import { useRecoilState } from 'recoil';
 import useInput from '@/hooks/useInput';
 import React from 'react';
+import commentState from '@/store/commentState';
 import NewCommentUI from './newComment.presenter';
 
 export default function NewComment() {
   const router = useRouter();
   const { postId } = router.query;
   const [user] = useRecoilState(userState);
+  const [, setIsUpdateComment] = useRecoilState(commentState);
   const { inputValue, onChangeUseInput } = useInput({
     commentContent: '',
   });
@@ -37,7 +39,8 @@ export default function NewComment() {
           userNickname: user.screenName,
         }),
       }).then(() => {
-        router.push(`/detail/${postId}`);
+        // 성공
+        setIsUpdateComment(true);
       });
     } catch (error) {
       console.error(error);
