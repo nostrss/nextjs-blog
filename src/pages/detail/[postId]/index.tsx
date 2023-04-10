@@ -1,4 +1,4 @@
-import { fetchCommentList, fetchPostDetail } from '@/common/firebase.layer';
+import { fetchCommentList, fetchPostDetail } from '@/common/firebase.query';
 import PostDetail from '@/components/postDetail/postDetail.container';
 import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 

@@ -35,3 +35,8 @@ export const convertUtcToLocal = (utcTime: Date) => {
 
   return date;
 };
+
+export const DocumentToObj = (obj: any) => {
+  const newObj = JSON.parse(JSON.stringify(obj));
+  return newObj;
+};

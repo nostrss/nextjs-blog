@@ -2,7 +2,7 @@ import { userState } from '@/store/userState';
 import { useRecoilState } from 'recoil';
 import useInput from '@/hooks/useInput';
 import React from 'react';
-import { mutateCommentList } from '@/common/firebase.layer';
+import { mutateComment } from '@/common/firebase.mutate';
 import NewCommentUI from './newComment.presenter';
 
 export default function NewComment({
@@ -23,11 +23,9 @@ export default function NewComment({
     event.preventDefault();
     if (postId === undefined) return;
 
-    await mutateCommentList(postId, inputValue.commentContent, user).then(
-      () => {
-        commentRefetch();
-      },
-    );
+    await mutateComment(postId, inputValue.commentContent, user).then(() => {
+      commentRefetch();
+    });
   };
 
   return (
