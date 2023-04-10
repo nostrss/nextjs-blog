@@ -1,4 +1,4 @@
-import { fetchPostDetail } from '@/common/firebase.layer';
+import { fetchCommentList, fetchPostDetail } from '@/common/firebase.layer';
 import PostDetail from '@/components/postDetail/postDetail.container';
 import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 
@@ -8,7 +8,10 @@ import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
  * @returns PostDetail : 상세페이지 컴포넌트
  */
 export default function DetailPage({ postId }: { postId: string }) {
-  const { data, isFetching } = useQuery({
+  /**
+   * useQuery를 사용하여 게시물 상세 데이터를 가져옵니다.
+   */
+  const { data: postDetailData, isFetching: isFetchingDetail } = useQuery({
     queryKey: ['fetchPostDatail'],
     queryFn: async () => {
       const response = await fetchPostDetail(postId);
@@ -16,7 +19,31 @@ export default function DetailPage({ postId }: { postId: string }) {
     },
   });
 
-  return <PostDetail data={data} isFetching={isFetching} />;
+  /**
+   * useQuery를 사용하여 댓글 데이터를 가져옵니다.
+   */
+
+  const {
+    data: commentListData,
+    isFetching: isFetchingComment,
+    refetch: commentRefatch,
+  } = useQuery({
+    queryKey: ['fetchCommentList'],
+    queryFn: async () => {
+      const response = await fetchCommentList(postId);
+      return response;
+    },
+  });
+
+  return (
+    <PostDetail
+      postDetailData={postDetailData}
+      isFetchingDetail={isFetchingDetail}
+      commentListData={commentListData}
+      isFetchingComment={isFetchingComment}
+      commentRefatch={commentRefatch}
+    />
+  );
 }
 
 /**
@@ -31,8 +58,13 @@ export async function getServerSideProps(context: any) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(['fetchPostDatail'], async () => {
-    const data = await fetchPostDetail(postId);
-    return data;
+    const postDetailData = await fetchPostDetail(postId);
+    return postDetailData;
+  });
+
+  await queryClient.prefetchQuery(['fetchCommentList'], async () => {
+    const commentListData = await fetchCommentList(postId);
+    return commentListData;
   });
 
   // props 객체에 게시물 데이터와 ID를 포함하여 반환합니다.

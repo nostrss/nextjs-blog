@@ -6,21 +6,27 @@ import { useRecoilState } from 'recoil';
 import PostDetailUI from './postDetail.presenter';
 
 export default function PostDetail({
-  data,
-  isFetching,
+  postDetailData,
+  isFetchingDetail,
+  commentListData,
+  isFetchingComment,
+  commentRefatch,
 }: {
-  data: any;
-  isFetching: boolean;
+  postDetailData: any;
+  isFetchingDetail: boolean;
+  commentListData: any;
+  isFetchingComment: boolean;
+  commentRefatch: any;
 }) {
   const router = useRouter();
   const [user] = useRecoilState(userState);
-  const editUrl = `/detail/${data?.postId}/edit`;
+  const editUrl = `/detail/${postDetailData?.postId}/edit`;
 
-  const isShowOptionButton = user?.userId === data?.userId;
+  const isShowOptionButton = user?.userId === postDetailData?.userId;
 
   const onClickDelete = async () => {
     try {
-      await deleteDoc(doc(firebaseDb, 'post', data.postId));
+      await deleteDoc(doc(firebaseDb, 'post', postDetailData.postId));
       router.push(`/`);
     } catch (error) {
       console.error(error);
@@ -31,9 +37,12 @@ export default function PostDetail({
     <PostDetailUI
       onClickDelete={onClickDelete}
       isShowOptionButton={isShowOptionButton}
-      data={data}
+      postDetailData={postDetailData}
+      isFetchingDetail={isFetchingDetail}
+      commentListData={commentListData}
+      isFetchingComment={isFetchingComment}
+      commentRefatch={commentRefatch}
       editUrl={editUrl}
-      isFetching={isFetching}
     />
   );
 }

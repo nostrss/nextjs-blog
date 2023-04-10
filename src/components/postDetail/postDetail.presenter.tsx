@@ -15,9 +15,12 @@ const ReactQuill = dynamic(import('react-quill'), {
 export default function PostDetailUI({
   onClickDelete,
   isShowOptionButton,
-  data,
+  postDetailData,
+  isFetchingDetail,
+  commentListData,
+  isFetchingComment,
+  commentRefatch,
   editUrl,
-  isFetching,
 }: any) {
   hljs.configure({
     languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql'],
@@ -44,15 +47,15 @@ export default function PostDetailUI({
 
   return (
     <div>
-      {isFetching && <div>Loading...</div>}
-      {!isFetching && (
+      {isFetchingDetail && <div>Loading...</div>}
+      {!isFetchingDetail && (
         <>
           <div>
-            <h1>Title : {data?.title}</h1>
+            <h1>Title : {postDetailData?.title}</h1>
             <ReactQuill
               style={{ height: '100%' }}
               theme="bubble"
-              value={data?.contents}
+              value={postDetailData?.contents}
               readOnly
               modules={modules}
             />
@@ -67,8 +70,12 @@ export default function PostDetailUI({
               </Link>
             </>
           )}
-          <NewComment />
-          <CommentList />
+          <NewComment commentRefatch={commentRefatch} />
+          <CommentList
+            commentListData={commentListData}
+            isFetchingComment={isFetchingComment}
+            commentRefatch={commentRefatch}
+          />
         </>
       )}
     </div>

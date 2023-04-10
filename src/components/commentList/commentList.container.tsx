@@ -1,58 +1,33 @@
 import { firebaseDb } from 'firebase.config';
-import { useRouter } from 'next/router';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import commentState from '@/store/commentState';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useRecoilState } from 'recoil';
 import { userState } from '@/store/userState';
 import CommentListUI from './commentList.presenter';
 
-export default function CommentList() {
-  const router = useRouter();
-  const { postId } = router.query;
-  const [commentList, setCommentList] = useState([]);
-  const [isUpdateComment, setIsUpdateComment] = useRecoilState(commentState);
+export default function CommentList({
+  commentListData,
+  isFetchingComment,
+  commentRefatch,
+}: any) {
+  const { postId } = commentListData;
+  const { commentsList } = commentListData;
   const [loginUser] = useRecoilState(userState);
 
   const isMyComment = (userId: string) => {
     return userId === loginUser.userId;
   };
 
-  const fetchCommentList = async () => {
-    // @ts-ignore
-    const commentListData = await getDoc(doc(firebaseDb, 'comments', postId));
-
-    if (commentListData.data()) {
-      // @ts-ignore
-      setCommentList(commentListData.data().commentsList);
-    }
-  };
-
-  useEffect(() => {
-    fetchCommentList();
-  }, []);
-
-  useEffect(() => {
-    if (isUpdateComment) {
-      fetchCommentList();
-      setIsUpdateComment(false);
-    }
-  }, [isUpdateComment]);
-
   const onClickCommentDelete = async (commentId: string) => {
-    const newCommentArray = commentList.filter((comment: any) => {
+    const newCommentArray = commentsList.filter((comment: any) => {
       return comment.commentId !== commentId;
     });
-
     // @ts-ignore
     const updateRef = doc(firebaseDb, 'comments', postId);
-
     try {
       await updateDoc(updateRef, {
         commentsList: newCommentArray,
       }).then(() => {
-        // 성공
-        setIsUpdateComment(true);
+        commentRefatch();
       });
     } catch (error) {
       console.error(error);
@@ -61,20 +36,16 @@ export default function CommentList() {
 
   const onClickUpdateComments = async (updatdCommentData: any) => {
     if (postId === undefined) return;
-
-    const newCommentArray = commentList.filter((comment: any) => {
+    const newCommentArray = commentsList.filter((comment: any) => {
       return comment.commentId !== updatdCommentData[0].commentId;
     });
-
     // @ts-ignore
     const updateRef = doc(firebaseDb, 'comments', postId);
-
     try {
       await updateDoc(updateRef, {
         commentsList: [...newCommentArray, ...updatdCommentData],
       }).then(() => {
-        // 성공
-        setIsUpdateComment(true);
+        commentRefatch();
       });
     } catch (error) {
       console.error(error);
@@ -83,10 +54,11 @@ export default function CommentList() {
 
   return (
     <CommentListUI
-      commentList={commentList}
+      commentsList={commentsList}
       isMyComment={isMyComment}
       onClickCommentDelete={onClickCommentDelete}
       onClickUpdateComments={onClickUpdateComments}
+      isFetchingComment={isFetchingComment}
     />
   );
 }

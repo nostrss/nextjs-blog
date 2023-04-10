@@ -6,14 +6,16 @@ import { userState } from '@/store/userState';
 import { useRecoilState } from 'recoil';
 import useInput from '@/hooks/useInput';
 import React from 'react';
-import commentState from '@/store/commentState';
 import NewCommentUI from './newComment.presenter';
 
-export default function NewComment() {
+export default function NewComment({
+  commentRefatch,
+}: {
+  commentRefatch: any;
+}) {
   const router = useRouter();
   const { postId } = router.query;
   const [user] = useRecoilState(userState);
-  const [, setIsUpdateComment] = useRecoilState(commentState);
   const { inputValue, onChangeUseInput } = useInput({
     commentContent: '',
   });
@@ -40,7 +42,7 @@ export default function NewComment() {
         }),
       }).then(() => {
         // 성공
-        setIsUpdateComment(true);
+        commentRefatch();
       });
     } catch (error) {
       console.error(error);
