@@ -1,6 +1,7 @@
 import { firebaseDb } from 'firebase.config';
 import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import { returnUtcTime } from './utils';
 
 export const fetchPostDetail = async (postId: string) => {
   const postData = await getDoc(doc(firebaseDb, 'post', postId));
@@ -32,8 +33,8 @@ export const mutateCommentList = async (
       commentsList: arrayUnion({
         commentId,
         commentContent,
-        // createdAt: serverTimestamp(),
-        // updatedAt: serverTimestamp(),
+        createdAt: returnUtcTime(),
+        updatedAt: returnUtcTime(),
         userId: user.userId,
         userName: user.displayName,
         userNickname: user.screenName,

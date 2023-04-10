@@ -1,10 +1,10 @@
-import { convertUnixToUct } from '@/common/utils';
+import { convertUtcToLocal } from '@/common/utils';
 import Link from 'next/link';
 import parse from 'node-html-parser';
 
 export default function BlogListItem({ blogListItem }: any) {
   const plainContents = parse(blogListItem.contents).text;
-  const creadtedAt = convertUnixToUct(blogListItem.createdAt.seconds);
+  const creadtedAt = convertUtcToLocal(blogListItem.createdAt);
 
   return (
     <article>

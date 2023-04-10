@@ -2,13 +2,14 @@ import { useMemo, useRef, useState } from 'react';
 import useInput from '@/hooks/useInput';
 import useGetId from '@/hooks/useGetId';
 import { firebaseDb } from 'firebase.config';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { formats } from '@/constants/constants';
 import { userState } from '@/store/userState';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import hljs from 'highlight.js';
+import { returnUtcTime } from '@/common/utils';
 import NewPostUI from './newPost.presenter';
 
 export default function NewPostContainer() {
@@ -65,8 +66,8 @@ export default function NewPostContainer() {
         postId,
         title: inputValue.title,
         contents: isPostContents,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
+        createdAt: returnUtcTime(),
+        updatedAt: returnUtcTime(),
         userId: user.userId,
         userName: user.displayName,
         userNickname: user.screenName,
