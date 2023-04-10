@@ -7,7 +7,7 @@ import CommentListUI from './commentList.presenter';
 export default function CommentList({
   commentListData,
   isFetchingComment,
-  commentRefatch,
+  commentRefetch,
 }: any) {
   const { postId } = commentListData;
   const { commentsList } = commentListData;
@@ -27,7 +27,7 @@ export default function CommentList({
       await updateDoc(updateRef, {
         commentsList: newCommentArray,
       }).then(() => {
-        commentRefatch();
+        commentRefetch();
       });
     } catch (error) {
       console.error(error);
@@ -45,7 +45,7 @@ export default function CommentList({
       await updateDoc(updateRef, {
         commentsList: [...newCommentArray, ...updatdCommentData],
       }).then(() => {
-        commentRefatch();
+        commentRefetch();
       });
     } catch (error) {
       console.error(error);

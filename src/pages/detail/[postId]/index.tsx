@@ -26,7 +26,7 @@ export default function DetailPage({ postId }: { postId: string }) {
   const {
     data: commentListData,
     isFetching: isFetchingComment,
-    refetch: commentRefatch,
+    refetch: commentRefetch,
   } = useQuery({
     queryKey: ['fetchCommentList'],
     queryFn: async () => {
@@ -41,7 +41,8 @@ export default function DetailPage({ postId }: { postId: string }) {
       isFetchingDetail={isFetchingDetail}
       commentListData={commentListData}
       isFetchingComment={isFetchingComment}
-      commentRefatch={commentRefatch}
+      commentRefetch={commentRefetch}
+      postId={postId}
     />
   );
 }

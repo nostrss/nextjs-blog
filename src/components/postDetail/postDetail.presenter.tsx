@@ -19,8 +19,9 @@ export default function PostDetailUI({
   isFetchingDetail,
   commentListData,
   isFetchingComment,
-  commentRefatch,
+  commentRefetch,
   editUrl,
+  postId,
 }: any) {
   hljs.configure({
     languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql'],
@@ -70,11 +71,11 @@ export default function PostDetailUI({
               </Link>
             </>
           )}
-          <NewComment commentRefatch={commentRefatch} />
+          <NewComment commentRefetch={commentRefetch} postId={postId} />
           <CommentList
             commentListData={commentListData}
             isFetchingComment={isFetchingComment}
-            commentRefatch={commentRefatch}
+            commentRefetch={commentRefetch}
           />
         </>
       )}

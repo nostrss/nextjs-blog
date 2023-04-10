@@ -10,13 +10,15 @@ export default function PostDetail({
   isFetchingDetail,
   commentListData,
   isFetchingComment,
-  commentRefatch,
+  commentRefetch,
+  postId,
 }: {
   postDetailData: any;
   isFetchingDetail: boolean;
   commentListData: any;
   isFetchingComment: boolean;
-  commentRefatch: any;
+  commentRefetch: any;
+  postId: string;
 }) {
   const router = useRouter();
   const [user] = useRecoilState(userState);
@@ -41,8 +43,9 @@ export default function PostDetail({
       isFetchingDetail={isFetchingDetail}
       commentListData={commentListData}
       isFetchingComment={isFetchingComment}
-      commentRefatch={commentRefatch}
+      commentRefetch={commentRefetch}
       editUrl={editUrl}
+      postId={postId}
     />
   );
 }
