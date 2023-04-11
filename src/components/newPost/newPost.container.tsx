@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import hljs from 'highlight.js';
 import { returnUtcTime } from '@/common/utils';
+import { mutateInitComment } from '@/common/firebase.mutate';
 import NewPostUI from './newPost.presenter';
 
 export default function NewPostContainer() {
@@ -72,10 +73,7 @@ export default function NewPostContainer() {
         userName: user.displayName,
         userNickname: user.screenName,
       }).then(async () => {
-        await setDoc(doc(firebaseDb, 'comments', postId), {
-          postId,
-          commentsList: [],
-        }).then(() => {
+        await mutateInitComment('comments', postId).then(() => {
           router.push(`/detail/${postId}`);
         });
       });
