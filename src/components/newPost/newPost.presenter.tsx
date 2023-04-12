@@ -17,6 +17,7 @@ export default function NewPostUI({
   titleInputId,
   onChangeUseInput,
   onClickSave,
+  isMutationLoading,
 }: IPropsNewPostUI) {
   return (
     <div>
@@ -41,9 +42,10 @@ export default function NewPostUI({
         ref={quillRef}
         placeholder="Write something..."
       />
-      <button onClick={onClickSave} type="button">
+      <button onClick={onClickSave} type="button" disabled={isMutationLoading}>
         Save
       </button>
+      {isMutationLoading && <p>loading...</p>}
     </div>
   );
 }

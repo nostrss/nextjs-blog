@@ -13,7 +13,7 @@ export default function BlogListItem({ blogListItem }: any) {
           <h2>{blogListItem.title}</h2>
           <p>{plainContents}</p>
           <p>{creadtedAt}</p>
-          <button type="button">Like</button>
+          {/* <button type="button">Like</button> */}
         </li>
       </Link>
     </article>

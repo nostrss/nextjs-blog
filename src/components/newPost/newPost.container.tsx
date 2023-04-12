@@ -100,6 +100,7 @@ export default function NewPostContainer() {
       setIsPostContents={setIsPostContents}
       onChangeUseInput={onChangeUseInput}
       onClickSave={onClickSave}
+      isMutationLoading={createNewPost.isLoading}
     />
   );
 }
