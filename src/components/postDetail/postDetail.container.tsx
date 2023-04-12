@@ -1,8 +1,7 @@
 import { userState } from '@/store/userState';
-import { firebaseDb } from 'firebase.config';
-import { deleteDoc, doc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
+import { deletePost } from '@/common/firebase.mutate';
 import PostDetailUI from './postDetail.presenter';
 
 export default function PostDetail({
@@ -28,7 +27,7 @@ export default function PostDetail({
 
   const onClickDelete = async () => {
     try {
-      await deleteDoc(doc(firebaseDb, 'post', postDetailData.postId));
+      await deletePost(postId);
       router.push(`/`);
     } catch (error) {
       console.error(error);

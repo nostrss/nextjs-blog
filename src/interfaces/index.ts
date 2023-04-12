@@ -33,3 +33,14 @@ export interface IPropsNewCommentsUI {
   onChangeUseInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSaveComments: (event: React.FormEvent<HTMLFormElement>) => void;
 }
+
+export interface INewPostData {
+  postId: string;
+  title: any;
+  contents: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  userName: string | null;
+  userNickname: string;
+}

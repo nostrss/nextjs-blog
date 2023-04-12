@@ -1,6 +1,13 @@
 import { firebaseDb } from 'firebase.config';
-import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  arrayUnion,
+  deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import { INewPostData } from '@/interfaces';
 import { returnUtcTime } from './utils';
 
 /**
@@ -33,12 +40,29 @@ export const mutateComment = async (
   }
 };
 
-export const mutateInitComment = async (
-  collections: string,
-  postId: string,
-) => {
-  await setDoc(doc(firebaseDb, collections, postId), {
+export const mutateInitComment = async (postId: string) => {
+  await setDoc(doc(firebaseDb, 'comments', postId), {
     postId,
     commentsList: [],
   });
+};
+
+export const mutateNewPost = async (newPostData: INewPostData) => {
+  const { postId } = newPostData;
+  try {
+    await setDoc(doc(firebaseDb, 'post', postId), {
+      ...newPostData,
+    } as any);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deletePost = async (postId: string) => {
+  try {
+    await deleteDoc(doc(firebaseDb, 'post', postId));
+    await deleteDoc(doc(firebaseDb, 'comments', postId));
+  } catch (error) {
+    console.error(error);
+  }
 };

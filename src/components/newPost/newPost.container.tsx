@@ -1,8 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import useInput from '@/hooks/useInput';
 import useGetId from '@/hooks/useGetId';
-import { firebaseDb } from 'firebase.config';
-import { doc, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { formats } from '@/constants/constants';
 import { userState } from '@/store/userState';
@@ -10,7 +8,9 @@ import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import hljs from 'highlight.js';
 import { returnUtcTime } from '@/common/utils';
-import { mutateInitComment } from '@/common/firebase.mutate';
+import { mutateInitComment, mutateNewPost } from '@/common/firebase.mutate';
+import { useMutation } from '@tanstack/react-query';
+import { INewPostData } from '@/interfaces';
 import NewPostUI from './newPost.presenter';
 
 export default function NewPostContainer() {
@@ -23,6 +23,17 @@ export default function NewPostContainer() {
     title: '',
   });
   const titleInputId = useGetId({});
+  const createNewPost = useMutation(
+    async (newPostData: INewPostData) => {
+      await mutateNewPost(newPostData);
+      await mutateInitComment(newPostData.postId);
+    },
+    {
+      onSuccess: (_data, variables) => {
+        router.push(`/detail/${variables.postId}`);
+      },
+    },
+  );
 
   // const imageHandler = async () => {
   //   const input = document.createElement('input');
@@ -62,21 +73,18 @@ export default function NewPostContainer() {
 
   const onClickSave = async () => {
     const postId = uuidv4();
+    const newPostData = {
+      postId,
+      title: inputValue.title,
+      contents: isPostContents,
+      createdAt: returnUtcTime(),
+      updatedAt: returnUtcTime(),
+      userId: user.userId,
+      userName: user.displayName,
+      userNickname: user.screenName,
+    };
     try {
-      await setDoc(doc(firebaseDb, 'post', postId), {
-        postId,
-        title: inputValue.title,
-        contents: isPostContents,
-        createdAt: returnUtcTime(),
-        updatedAt: returnUtcTime(),
-        userId: user.userId,
-        userName: user.displayName,
-        userNickname: user.screenName,
-      }).then(async () => {
-        await mutateInitComment('comments', postId).then(() => {
-          router.push(`/detail/${postId}`);
-        });
-      });
+      await createNewPost.mutate(newPostData);
     } catch (error) {
       console.error(error);
     }
