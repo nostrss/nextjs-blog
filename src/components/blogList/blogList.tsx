@@ -24,13 +24,13 @@ export default function BlogList() {
       ? query(
           collection(firebaseDb, 'post'),
           orderBy('createdAt', 'desc'),
-          limit(5),
+          limit(10),
         )
       : query(
           collection(firebaseDb, 'post'),
           orderBy('createdAt', 'desc'),
           startAfter(isLastVisible),
-          limit(5),
+          limit(10),
         );
 
     let tmpList: DocumentData[] = [];
