@@ -40,6 +40,10 @@ export const mutateComment = async (
   }
 };
 
+/**
+ * 최초 글 생성 시  comments 컬렉션에 postId를 키로 하는 빈 배열의 문서를 생성하는 함수
+ * @param postId
+ */
 export const mutateInitComment = async (postId: string) => {
   await setDoc(doc(firebaseDb, 'comments', postId), {
     postId,
