@@ -8,13 +8,24 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import Image from 'next/image';
 
-export const WrapperHeader = styled.div`
+const WrapperHeader = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   border: 1px solid green;
   @media (max-width: 768px) {
     background-color: red;
     color: #fff;
   }
+`;
+
+const WrapperHeaderRight = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 export default function Header() {
@@ -48,14 +59,14 @@ export default function Header() {
   return (
     <WrapperHeader>
       <Link href="/">
-        <h1>헤더입니다</h1>
+        <h1>배너</h1>
       </Link>
-      <div>
+      <WrapperHeaderRight>
         {userData ? (
           <>
             <ul>
-              <li>{userData?.email}</li>
-              <li>{user?.screenName}</li>
+              {/* <li>{userData?.email}</li>
+              <li>{user?.screenName}</li> */}
               <Link href={`/profile/${user.screenName}`}>
                 {user?.photoURL && (
                   <Image
@@ -71,9 +82,9 @@ export default function Header() {
             <button type="button" onClick={onClickLogout}>
               Sign Out
             </button>
-            <Link href="/new-post">
-              <button type="button">Write</button>
-            </Link>
+            <button type="button">
+              <Link href="/new-post">Write</Link>
+            </button>
           </>
         ) : (
           <>
@@ -85,7 +96,7 @@ export default function Header() {
             </Link>
           </>
         )}
-      </div>
+      </WrapperHeaderRight>
     </WrapperHeader>
   );
 }
