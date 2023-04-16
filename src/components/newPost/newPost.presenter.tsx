@@ -49,7 +49,7 @@ export default function NewPostUI({
         modules={modules}
         formats={formats}
         // @ts-ignore
-        ref={quillRef}
+        forwardedRef={quillRef}
         placeholder="Write something..."
       />
       <button onClick={onClickSave} type="button" disabled={isMutationLoading}>
