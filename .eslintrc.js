@@ -32,7 +32,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'no-console': ['error', { allow: ['error'] }],
+    'no-console': ['error', { allow: ['error', 'info', 'warning'] }],
     'react/display-name': 'off',
     'func-names': 'off',
     'react/jsx-props-no-spreading': 'off',

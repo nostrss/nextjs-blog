@@ -8,14 +8,14 @@ export default function BlogListItem({ blogListItem }: any) {
 
   return (
     <article>
-      <Link href={`/detail/${blogListItem.postId}`}>
-        <li>
+      <li>
+        <Link href={`/detail/${blogListItem.postId}`}>
           <h2>{blogListItem.title}</h2>
           <p>{plainContents}</p>
           <p>{creadtedAt}</p>
           {/* <button type="button">Like</button> */}
-        </li>
-      </Link>
+        </Link>
+      </li>
     </article>
   );
 }

@@ -1,12 +1,22 @@
 import { IPropsNewPostUI } from '@/interfaces';
 import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css';
 import 'highlight.js/styles/atom-one-dark.css';
 
-const ReactQuill = dynamic(import('react-quill'), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import('react-quill');
+    return function comp({ forwardedRef, ...props }: any) {
+      return <RQ ref={forwardedRef} {...props} />;
+    };
+  },
+  { ssr: false },
+);
+
+// const ReactQuill = dynamic(import('react-quill'), {
+//   ssr: false,
+//   loading: () => <p>Loading ...</p>,
+// });
 
 export default function NewPostUI({
   modules,
@@ -33,7 +43,7 @@ export default function NewPostUI({
       </label>
       <ReactQuill
         style={{ height: '100%' }}
-        theme="bubble"
+        theme="snow"
         value={isPostContents}
         onChange={setIsPostContents}
         modules={modules}

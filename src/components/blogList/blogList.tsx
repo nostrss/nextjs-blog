@@ -55,23 +55,23 @@ export default function BlogList() {
   }, []);
 
   return (
-    <ul>
-      <InfiniteScroll
-        dataLength={blogLists.length}
-        next={fetchPostList}
-        hasMore={!!isLastVisible}
-        loader={<h4>Loading...</h4>}
-        endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
-        scrollThreshold={0.8}
-      >
+    <InfiniteScroll
+      dataLength={blogLists.length}
+      next={fetchPostList}
+      hasMore={!!isLastVisible}
+      loader={<h4>Loading...</h4>}
+      endMessage={
+        <p style={{ textAlign: 'center' }}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }
+      scrollThreshold={0.8}
+    >
+      <ul>
         {blogLists?.map((blogListItem) => (
           <BlogListItem key={uuidv4()} blogListItem={blogListItem} />
         ))}
-      </InfiniteScroll>
-    </ul>
+      </ul>
+    </InfiniteScroll>
   );
 }
