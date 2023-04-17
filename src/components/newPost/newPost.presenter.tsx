@@ -13,11 +13,6 @@ const ReactQuill = dynamic(
   { ssr: false },
 );
 
-// const ReactQuill = dynamic(import('react-quill'), {
-//   ssr: false,
-//   loading: () => <p>Loading ...</p>,
-// });
-
 export default function NewPostUI({
   modules,
   formats,
@@ -48,7 +43,6 @@ export default function NewPostUI({
         onChange={setIsPostContents}
         modules={modules}
         formats={formats}
-        // @ts-ignore
         forwardedRef={quillRef}
         placeholder="Write something..."
       />
