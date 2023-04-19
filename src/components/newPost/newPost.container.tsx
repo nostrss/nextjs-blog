@@ -15,8 +15,6 @@ import {
 } from '@/common/firebase.mutate';
 import { useMutation } from '@tanstack/react-query';
 import { INewPostData } from '@/interfaces';
-// import { firebaseStorage } from 'firebase.config';
-// import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import NewPostUI from './newPost.presenter';
 
 export default function NewPostContainer() {
@@ -29,6 +27,7 @@ export default function NewPostContainer() {
     title: '',
   });
   const titleInputId = useGetId({});
+
   const createNewPost = useMutation(
     async (newPostData: INewPostData) => {
       await mutateNewPost(newPostData);
@@ -82,7 +81,18 @@ export default function NewPostContainer() {
     };
   }, []);
 
-  const onClickSave = async () => {
+  const modulesReadOnly = useMemo(() => {
+    return {
+      syntax: {
+        highlight: (text: any) => hljs.highlightAuto(text).value,
+      },
+      toolbar: {
+        container: [],
+      },
+    };
+  }, []);
+
+  const onClickSave = () => {
     const postId = uuidv4();
     const newPostData = {
       postId,
@@ -95,7 +105,7 @@ export default function NewPostContainer() {
       userNickname: user.screenName,
     };
     try {
-      await createNewPost.mutate(newPostData);
+      createNewPost.mutate(newPostData);
     } catch (error) {
       console.error(error);
     }
@@ -105,6 +115,7 @@ export default function NewPostContainer() {
     <NewPostUI
       titleInputId={titleInputId}
       modules={modules}
+      modulesReadOnly={modulesReadOnly}
       formats={formats}
       isPostContents={isPostContents}
       quillRef={quillRef}

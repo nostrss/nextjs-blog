@@ -28,6 +28,7 @@ export interface IPropsNewPostUI {
   onChangeUseInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSave: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isMutationLoading: boolean;
+  modulesReadOnly: {};
 }
 
 export interface IPropsNewCommentsUI {
